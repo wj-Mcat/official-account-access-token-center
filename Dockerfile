@@ -5,7 +5,7 @@ WORKDIR /wechaty-puppet-access-token-center
 
 COPY package.json .
 RUN npm install -g typescript
-RUN npm install -g ts-node@7.0.13
+RUN npm install -g ts-node
 RUN npm install
 
 COPY . .
