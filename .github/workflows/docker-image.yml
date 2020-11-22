@@ -8,13 +8,13 @@ on:
 
 jobs:
 
-  build:
-
+  Build and Deploy:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
+    - name: Login to DockerHub Registry
+      run: echo ${{ secrets.DOCKER_PERSONAL_ACCESS_TOKEN }} | docker login -u mcatwj --password-stdin
     - name: Build the Docker image
-      run: ./bin/build.sh
+      run: ./bin/docker.sh build
     - name: Deploy the Docker image
-      run: ./bin/deploy.sh
+      run: ./bin/docker.sh deploy

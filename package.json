@@ -23,6 +23,7 @@
     "@chatie/tsconfig": "^0.10.1",
     "@types/lru-cache": "^5.1.0",
     "axios": "^0.21.0",
+    "esm": "^3.2.25",
     "express": "^4.17.1",
     "flash-store": "^0.20.6",
     "lru-cache": "^6.0.0",
