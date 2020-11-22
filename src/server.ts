@@ -40,7 +40,7 @@ export class AccessTokenServer  {
     if (options.store == 'lru') {
       this.accessTokenStore = new LRUAccessTokenStore()
     }
-    else { 
+    else {
       throw new Error(`store types(${options.store}) not supported`)
     }
 
@@ -58,12 +58,12 @@ export class AccessTokenServer  {
     log.verbose('Webhook', 'appGet({url: %s})', req.url)
 
     const {
-      appId, appSecret
+      appid, secret
     }             = req.query as { [key: string]: string }
 
-    if (!appId) {
+    if (!appid) {
       const errorPayload: AccessTokenPayload = {
-        errmsg      : 'appId & appSecret are required',
+        errmsg      : 'appid & secret are required',
         errcode     : 40013,
         access_token: '',
         expires_in  : 0
@@ -79,7 +79,7 @@ export class AccessTokenServer  {
     /**
      * 1. get payload from the cache
      */
-    const key = `${appId}-${appSecret}`
+    const key = `${appid}-${secret}`
     const payload = await this.accessTokenStore.get(key)
     if (payload) {
       res.send(payload)
@@ -89,7 +89,7 @@ export class AccessTokenServer  {
     /**
      * 2. get access token from tencent server and cache it
      */
-    const accessTokenResponse: AccessTokenPayloadResponse = await axios.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appId}&secret=${appSecret}`)
+    const accessTokenResponse: AccessTokenPayloadResponse = await axios.get(`https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=${appid}&secret=${secret}`)
     await this.accessTokenStore.set(key, accessTokenResponse.data)
 
     res.send(accessTokenResponse.data)
@@ -107,6 +107,7 @@ export class AccessTokenServer  {
     const app = express()
 
     app.get('/',  this.appGet.bind(this))
+    app.get('/token', this.appGet.bind(this))
 
     const server = this.server = http.createServer(app)
 
