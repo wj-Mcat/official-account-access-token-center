@@ -1,11 +1,10 @@
 FROM node
 LABEL maintainer="wj-Mcat (吴京京) <wjmcater@gmail.com>"
 
-WORKDIR /wechaty-puppet-access-token-center
+WORKDIR /app
 
 COPY package.json .
-RUN npm install -g typescript
-RUN npm install -g ts-node
+RUN npm install -g typescript ts-node
 RUN npm install
 
 COPY . .
