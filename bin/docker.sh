@@ -1,6 +1,6 @@
 #!/bin/bash -x
 
-IMAGE_NAME=wechaty-puppet-official-account-at
+IMAGE_NAME=official-account-access-token-center
 function deploy () {
   version="$(cat VERSION)"
   docker push "mcatwj/${IMAGE_NAME}:${version}"

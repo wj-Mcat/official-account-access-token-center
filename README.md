@@ -12,5 +12,5 @@ docker pull mcatwj/wechaty-puppet-official-account-at:latest
 - run & expose service
 
 ```shell
-docker pull -p your-port:8080 mcatwj/wechaty-puppet-official-account-at:latest
+docker run -p your-port:8080 mcatwj/wechaty-puppet-official-account-at:latest
 ```
