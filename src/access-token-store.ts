@@ -34,13 +34,14 @@ class LRUAccessTokenStore extends AccessTokenStore {
 
     /**
      * LRU
+     * set maxAge according to: https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html
      */
     const lruOptions: LRU.Options<string, AccessTokenPayload> = {
       dispose (key: string, val: any) {
         log.silly('AccessTokenStore', `constructor() lruOptions.dispose(${key}, ${JSON.stringify(val)})`)
       },
       max    : 1000,
-      maxAge : 1000 * 60 * 60,
+      maxAge : 1000 * 7200,
     }
 
     this.cacheAccessTokenPayload = new LRU<string, AccessTokenPayload>(lruOptions)
